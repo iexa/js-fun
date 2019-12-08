@@ -1,0 +1,181 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<title>Connect 4 - 6r x 7c</title>
+
+	<link href="https://fonts.googleapis.com/css?family=Schoolbell&display=swap" rel="stylesheet">
+	<style>
+		:root {
+			--elemsize: 4.5vw;
+			background: #000 url(https://source.unsplash.com/1600x1000/?dog,dogs) left top/cover no-repeat fixed;
+			transition: background-image 3s;
+		}
+		* { box-sizing: border-box; }
+		body {
+			padding: 0 0 2rem 2rem;
+			width: 50vw;
+			margin: 2rem auto 0;
+			background: rgba(222,222,222,0.8);
+			border: 2px solid #aaa;
+			border-radius: 1rem;
+			font: 1.2rem/1.5rem 'Schoolbell', cursive;
+
+		}
+		#playfield { 
+			display: flex;
+			cursor: pointer;
+		}
+
+		.elem {
+			width: var(--elemsize);
+			height: var(--elemsize);
+			margin: calc(var(--elemsize) / 8) calc(var(--elemsize) / 5);
+			border: 2px solid black; 
+			border-radius: 50%; 
+			opacity: 0.7;
+			transition: border-color 0.4s;
+		}
+		.elem.p1 { background-color: red; }
+		.elem.p2 { background-color: green; }
+
+		.col:nth-child(odd) { /* background: rgba(200,200,200,0.8); */ }
+		.col:hover .elem { border-color: darkgoldenrod; }
+		.col.full:hover .elem { border-color: red; }
+
+	</style>
+	<head>
+<body>
+	
+	<h1>connect 4</h1>
+		<ul>
+			<li>players will take turns</li>
+			<li>click on a non-full column to insert a disc</li>
+			<li>discs will fall down on top of the already existing ones</li>
+			<li>you won if there are 4 discs of yours in a row / column / diagonal</li>
+		</ul>
+
+<div id="playfield">
+	<div class="col full col-0">
+		<div class="elem p1"></div>
+		<div class="elem p2"></div>
+		<div class="elem"></div>
+		<div class="elem"></div>
+		<div class="elem"></div>
+		<div class="elem"></div>
+	</div>
+	<div class="col col-1">
+		<div class="elem"></div>
+		<div class="elem"></div>
+		<div class="elem"></div>
+		<div class="elem"></div>
+		<div class="elem"></div>
+		<div class="elem"></div>
+	</div>
+	<div class="col col-2">
+		<div class="elem"></div>
+		<div class="elem"></div>
+		<div class="elem"></div>
+		<div class="elem"></div>
+		<div class="elem"></div>
+		<div class="elem"></div>
+	</div>
+	<div class="col col-3">
+		<div class="elem"></div>
+		<div class="elem"></div>
+		<div class="elem"></div>
+		<div class="elem"></div>
+		<div class="elem"></div>
+		<div class="elem"></div>
+	</div>
+	<div class="col col-4">
+		<div class="elem"></div>
+		<div class="elem"></div>
+		<div class="elem"></div>
+		<div class="elem"></div>
+		<div class="elem"></div>
+		<div class="elem"></div>
+	</div>
+	<div class="col col-5">
+		<div class="elem"></div>
+		<div class="elem"></div>
+		<div class="elem"></div>
+		<div class="elem"></div>
+		<div class="elem"></div>
+		<div class="elem"></div>
+	</div>
+	<div class="col col-6">
+		<div class="elem"></div>
+		<div class="elem"></div>
+		<div class="elem"></div>
+		<div class="elem"></div>
+		<div class="elem"></div>
+		<div class="elem"></div>
+	</div>
+</div>
+
+
+	<script>
+		class ConnectFour {
+			constructor() {
+				// init playfield mtrx 7col x 6row - 0 = empty, 1 - p1, 2 - p2
+				this.pfield = [Array(7).keys()].map(_ => [0,0,0,0,0,0])
+				// for(let i=0; i<7; i++) {
+				// 	let _ = []
+				// 	for(let j=0; j<6; j++)
+				// 		_.push(0)
+				// 	this.pfield.push(_);
+				// }
+			 	// console.log(this.pfield)
+			}
+
+			// check for win routines for param: player
+			checkColumns(p=1) {
+
+			}
+
+			checkRows(p=1) {
+
+			}
+
+			checkDiags(p=1) { // 6 diag(2x4, 2x5, 2x6) *2 
+
+			}
+
+			isColFree(col=0) {
+
+			}
+
+			// e - click event
+			// main "loop"
+			handleClick(e) {
+				let col = -1;
+				let tgt = e.target;
+				if(tgt.classList.contains('elem')) // div.elem clicked move up -- else .col clicked
+					tgt = tgt.parentNode;
+				// console.log(tgt.classList)
+				console.log(this.testAsync())
+				tgt.classList.forEach(_ => _.length > 3 ? col = _.slice(4) : -1) // grab .col-[nr] <--
+				console.log(col)
+				if(col === -1) {
+					console.error('invalid column == -1 ???')
+					return;
+				}
+
+				var testAsync = async function() {
+						await function ehh() { return new Promise(r => setTimeout(_ => r(), 2000) ) }
+				}
+
+
+			}
+
+
+		}
+		const cf = new ConnectFour();
+		document.querySelector('#playfield').addEventListener('click',
+			(e) => cf.handleClick(e));
+
+
+	</script>
+</body>
+</html>

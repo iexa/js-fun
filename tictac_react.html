@@ -1,0 +1,61 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<title>tictactoe w/ react all-in-one</title>
+
+	<script src="https://unpkg.com/react@16.11.0/umd/react.production.min.js"></script>
+	<script src="https://unpkg.com/react-dom@16.11.0/umd/react-dom.production.min.js"></script>
+	<!-- <script src="https://unpkg.com/react-router@5.1.2/umd/react-router.min.js"></script> -->
+	<script src="https://unpkg.com/babel-standalone@6/babel.min.js"></script>
+
+	<style>
+		* { 
+			box-sizing: border-box; 
+		}
+		:root {
+			background: darkgoldenrod;
+			color: gold;
+		}
+
+	</style>
+</head>
+<body>
+<h1>Dikk-Tack-Toe</h1>
+<div id="dikk"></div>
+
+<script type="text/babel">
+// <!-- compile jsx w/ babel automagically -->	
+	// simple component
+	const Geci = () => {
+			return <span>{Date()}</span>
+	}
+
+
+	class Dikk extends React.Component {
+		constructor() {
+			super()
+			
+		}
+
+		render() {
+			return <div onClick={this.handleFuck}>
+				<Geci />
+			</div>
+		}
+
+		handleFuck = (e) => { // this is bound no need for .bind(this) - but not that good
+			console.log(e, this);
+		}
+
+		gecc = function() { console.log('xxx') }.bind(this)
+		// gecc2() {}.bind(this) // does not work
+
+
+	}
+
+	ReactDOM.render(<Dikk />, document.querySelector('#dikk'))
+</script>
+
+</body>
+</html>
