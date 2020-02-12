@@ -51,8 +51,8 @@
 		<ul>
 			<li>players will take turns</li>
 			<li>click on a non-full column to insert a disc</li>
-			<li>discs will fall down on top of the already existing ones</li>
-			<li>you won if there are 4 discs of yours in a row / column / diagonal</li>
+			<li>discs will fall down on top of already existing ones</li>
+			<li>you win if there are 4 discs of the same color in a row / column / diagonal</li>
 		</ul>
 
 <div id="playfield">
@@ -119,13 +119,7 @@
 		class ConnectFour {
 			constructor() {
 				// init playfield mtrx 7col x 6row - 0 = empty, 1 - p1, 2 - p2
-				this.pfield = [Array(7).keys()].map(_ => [0,0,0,0,0,0])
-				// for(let i=0; i<7; i++) {
-				// 	let _ = []
-				// 	for(let j=0; j<6; j++)
-				// 		_.push(0)
-				// 	this.pfield.push(_);
-				// }
+				this.pfield = Array(7).fill( Array(6).fill(0) )
 			 	// console.log(this.pfield)
 			}
 
@@ -155,6 +149,7 @@
 					tgt = tgt.parentNode;
 				// console.log(tgt.classList)
 				console.log(this.testAsync())
+				// full class also > 3 ... so test for col- instead (regex)
 				tgt.classList.forEach(_ => _.length > 3 ? col = _.slice(4) : -1) // grab .col-[nr] <--
 				console.log(col)
 				if(col === -1) {
