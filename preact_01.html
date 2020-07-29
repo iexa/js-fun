@@ -10,8 +10,8 @@
         border-radius: 1rem; width: 50vw;}
     ul {display: flex; flex-direction: column-reverse; 
        background: radial-gradient(darkgoldenrod, goldenrod 75%); padding: 2rem 1.5rem 0.5rem; }
-    ul li { list-style: inside none; padding: 0.25rem 0; }
-    ul li:hover { cursor: hand; }
+    ul li { list-style: inside none; padding: 0.25rem 0;  }
+    ul li:hover, footer > button { cursor: pointer; }
     li::after { content:''; border: 8px solid transparent; border-right-color:#000; /* arrow */
       position: absolute; transform: translateX(1rem); opacity: 0;
       transition: all 300ms ease-in-out;}
@@ -37,25 +37,29 @@
       const { todos = [] } = this.state
       this.setState({ todos: todos.concat(`Item #${todos.length}`) })
     }
+
     render({ page }, { todos = []} ) {
       return html`
-        <div id=app> <${Header} name="Todo's (${page})" />
-        <ul> ${todos.map((todo, idx) => html`
-          <li>${todo + ', idx:'+idx}</li>
-        `)} </ul>
-        <button onclick=${_ => this.addTodo()}> Add new Todo <//>
-        <${Footer}name=geciszar class=fost> <//>
+        <div id=app> 
+          <${Header} name="XXTodo's (${page})" />
+          <ul> ${todos.map((todo, idx) => html`
+            <li key="x${idx}">${todo + ', idx:'+idx}</li>
+          `)} </ul>
+          <button onclick=${_ => this.addTodo()}> Add new Todo <//>
+          <${Footer}name=geciszar class=fost> <//>
         </div>
       `;
     }
   }
 
-  function Repeat(props) {
+
+  function Repeat({numTimes, children}) {
     let items = []
-    for (let i=0; i < props.numTimes; i++)
-      items.push(props.children)
+    for (let i=0; i < numTimes; i++)
+      items.push(children)
     return items
   }
+
 
   class OnOff extends Component {
     state = {isOn: false};
