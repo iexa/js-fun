@@ -1,0 +1,17 @@
+.form-group.mb-3
+  label(for="title") Title
+  input.form-control(required type="text" name="title" id="title"
+    value=article.title)
+.form-group.mb-2
+  label(for="description") Description
+  textarea.form-control(name="description" id="description")
+    =article.description
+.form-group.mb-4
+  label(for="markdown") Markdown
+  textarea.form-control(
+    rows=5 required type="text" name="markdown" id="markdown")
+    =article.markdown
+
+
+a.mr-2.btn.btn-outline-secondary(href="/") Cancel
+button.btn.btn-primary(type="submit") Save
