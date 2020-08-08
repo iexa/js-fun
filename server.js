@@ -28,7 +28,7 @@ if(process.env.NODE_ENV != 'production') {
     setTimeout(() => {
       livereload.refresh("/");
     }, 100);
-  });
+  })
   console.log('livereload up and watching...')
 }
 // ---- dev part end
@@ -54,4 +54,4 @@ app.get('/', async(req, res) => {
   res.render('articles/index', { articles })
 })
 
-app.listen(5000, 'localhost', _ => console.log('http://localhost:5000/ started...'))
+app.listen(5000, 'localhost', () => console.log('http://localhost:5000/ started...'))

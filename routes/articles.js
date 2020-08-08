@@ -28,13 +28,13 @@ router.get('/:slug', async(req, res) => {
 
 
 router.post('/', async(req, res, next) => {
-  req.article = new Article()
+  res.locals.article = new Article()
   next()
 }, saveAndRedirect('new'))
 
 
 router.put('/:id', async (req, res, next) => {
-  req.article = await Article.findById(req.params.id)
+  res.locals.article = await Article.findById(req.params.id)
   next()
 }, saveAndRedirect('edit'))
 
@@ -44,10 +44,10 @@ router.delete('/:id', async (req, res) => {
   res.redirect('/')
 })
 
-
+// used for put (mod) and post (new)
 function saveAndRedirect(path) {
   return async (req, res) => {
-    let article = req.article
+    let article = res.locals.article
     'title description markdown'.split(' ')
       .map(i => article[i] = req.body[i])
 
