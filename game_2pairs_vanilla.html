@@ -1,0 +1,255 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>2 of pairs with yorkies</title>
+    <style>
+      @import url("https://fonts.googleapis.com/css2?family=Pacifico&display=swap");
+      * {
+        box-sizing: border-box;
+      }
+      body {
+        --bg: dimgrey;
+        --fg: gold;
+        --fg2: darkgoldenrod;
+        --img_per_row: 4;
+        --img_max_size: 200px;
+        --img_size: min(calc(80vw / var(--img_per_row)), var(--img_max_size));
+
+        background: url(https://source.unsplash.com/1200x1200/?nature,dark) center center /
+          cover no-repeat fixed var(--bg);
+        color: var(--fg);
+      }
+      h1 {
+        font: 1.8rem/1.2 "Pacifico";
+      }
+      summary {
+        display: flex;
+        width: 100%;
+        align-items: center;
+        /* justify-content: flex-start; */
+        opacity: 0.8;
+        padding: 0.5rem 2rem;
+        text-decoration: none;
+        border-radius: 0.5rem;
+        color: var(--fg);
+        cursor: pointer;
+      }
+      summary > div:hover {
+        opacity: 1;
+      }
+      summary > label,
+      summary > button {
+        margin-left: auto;
+      }
+      summary #size {
+        width: min(15rem, 30vw);
+      }
+      details {
+        width: 100%;
+        margin: 0.1rem auto;
+        padding: 0.5rem;
+        background: rgba(0, 0, 0, 0.7);
+        border-radius: 0.5rem;
+      }
+      textarea {
+        width: 100%;
+        height: 15rem;
+        background: transparent;
+        color: var(--fg);
+        border: 1px solid var(--fg2);
+      }
+      .arena-container {
+        width: 100%;
+        margin: 1rem 0;
+        display: grid;
+        place-items: center;
+        border-radius: 0.5rem;
+        padding: 1rem;
+        background-color: rgba(0, 0, 0, 0.5);
+      }
+      #arena {
+        display: grid;
+        grid-gap: 1rem;
+        grid-template-columns: repeat(var(--img_per_row), var(--img_size));
+      }
+      #arena img {
+        border-radius: 0.3rem;
+        width: var(--img_size);
+        height: var(--img_size);
+      }
+      #arena .node {
+        border-radius: 0.3rem;
+        cursor: pointer;
+        height: var(--img_size);
+        width: var(--img_size);
+        background: url("data:image/svg+xml, %3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 21 21' fill='white' height='1em' width='1em'%3E%3Cg fill='none' fillRule='evenodd' transform='translate(2 2)'%3E%3Cpath stroke='grey' strokeLinecap='round' strokeLinejoin='round' d='M16.5 8.5 A8 8 0 0 1 8.5 16.5 A8 8 0 0 1 0.5 8.5 A8 8 0 0 1 16.5 8.5 z' /%3E%3Cpath fill='grey' d='M7 6 A1 1 0 0 1 6 7 A1 1 0 0 1 5 6 A1 1 0 0 1 7 6 z' /%3E%3Cpath fill='grey' d='M12 6 A1 1 0 0 1 11 7 A1 1 0 0 1 10 6 A1 1 0 0 1 12 6 z' /%3E%3Cpath stroke='grey' strokeLinecap='round' strokeLinejoin='round' d='M5 10c.333 2.333 1.5 3.5 3.5 3.5s3.167-1.167 3.5-3.5z' /%3E%3C/g%3E%3C/svg%3E")
+          center/80% no-repeat #000;
+      }
+      #arena .node.altbg {
+        /* diamond image */
+        background-image: url("data:image/svg+xml, %3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 21 21' fill='currentColor' height='1em' width='1em' %3E%3Cg fill='none' fillRule='evenodd' stroke='grey' strokeLinecap='round' strokeLinejoin='round' %3E%3Cpath d='M15.5 4l3 4-8 10-8-10 3.009-4zM2.5 8h16M7.5 8l3 10M13.5 8l-3 10' /%3E%3Cpath d='M5.509 4L7.5 8l3-4 3 4 2-4' /%3E%3C/g%3E%3C/svg%3E");
+      }
+      #arena .node img {
+        opacity: 0;
+      }
+      #arena .node.flipped img {
+        opacity: 1;
+      }
+
+      body.light {
+        background-image: url(https://source.unsplash.com/1200x1200/?nature,light);
+      }
+    </style>
+  </head>
+  <body class="">
+    <h1>2 of pairs vanilla js game with some pizzaz'</h1>
+    <details>
+      <summary>
+        <div>edit images</div>
+        <label> area </label>&nbsp;
+        <input title="change area" type="range" min="0" max="9" id="size" value="2" />
+        <button type="button">restart game</button>
+      </summary>
+      <textarea id="imagelist"> </textarea>
+      <br />
+      <span>
+        Each image goes into a new line - once you edit the list, please reset game. If
+        you clear the list and reload - new random doggie images will load
+      </span>
+    </details>
+
+    <div class="arena-container">
+      <div id="arena">
+        <div class="node">
+          <img
+            data-id="1"
+            data-flipped-count
+            data-pair-id
+            data-found
+            src="https://source.unsplash.com/400x400/?yorkie,dog"
+            alt=""
+          />
+        </div>
+        <img src="https://source.unsplash.com/400x400/?yorkie,dog" alt="" />
+        <img src="https://source.unsplash.com/400x400/?yorkie,dog" alt="" />
+        <img src="https://source.unsplash.com/400x400/?yorkie,dog" alt="" />
+        <img src="https://source.unsplash.com/400x400/?yorkie,dog" alt="" />
+        <img src="https://source.unsplash.com/400x400/?yorkie,dog" alt="" />
+        <img src="https://source.unsplash.com/400x400/?yorkie,dog" alt="" />
+        <img src="https://source.unsplash.com/400x400/?yorkie,dog" alt="" />
+        <img src="https://source.unsplash.com/400x400/?yorkie,dog" alt="" />
+        <img src="https://source.unsplash.com/400x400/?yorkie,dog" alt="" />
+        <img src="https://source.unsplash.com/400x400/?yorkie,dog" alt="" />
+        <img src="https://source.unsplash.com/400x400/?yorkie,dog" alt="" />
+        <img src="https://source.unsplash.com/400x400/?yorkie,dog" alt="" />
+        <img src="https://source.unsplash.com/400x400/?yorkie,dog" alt="" />
+        <img src="https://source.unsplash.com/400x400/?yorkie,dog" alt="" />
+        <img src="https://source.unsplash.com/400x400/?yorkie,dog" alt="" />
+      </div>
+    </div>
+
+    <script>
+      class Game {
+        static areaSizes = [4.4, 5.4, 6.4, 7.4, 8.4, 6.6, 8.5, 8.6, 8.7, 8.8]
+        static domRoot = "#arena"
+
+        /* restart game */
+        constructor(images, areaIndex) {
+          if (areaIndex < 0 || areaIndex >= Game.areaSizes.length) {
+            return null
+          }
+          const [sizeX, sizeY] = Game.areaSizes[areaIndex].toString().split(".")
+          const pairsNeeded = (sizeX * sizeY) / 2
+          if (images.length < 0 || images.length < pairsNeeded) {
+            return null
+          }
+
+          // pick unique images
+          const picks = []
+          const areaImages = Array(pairsNeeded * 2)
+          do {
+            let i = Math.floor(Math.random() * images.length)
+            if (picks.includes(i)) continue
+            picks.push(i)
+          } while (picks.length < pairsNeeded)
+          console.log(picks)
+
+          // randomize pairs
+          for (let i = 0; i < picks.length; i++) {
+            this.findRandomSlot(areaImages, picks[i])
+            this.findRandomSlot(areaImages, picks[i])
+          }
+          console.log(areaImages)
+
+          this.buildImages(Game.domRoot, areaImages)
+        }
+
+        // find a random empty slot in array for data
+        findRandomSlot(arr, data) {
+          while (1) {
+            let x = Math.floor(Math.random() * arr.length)
+            if (arr[x] === undefined) {
+              arr[x] = data
+              break
+            }
+          }
+        }
+
+        buildImages(domRoot, imageIds) {
+          // TODO
+        }
+      }
+
+      let url_rndinit = "https://source.unsplash.com/400x400/?yorkie,dog"
+      let nr_images = 5 // SHOULD BE based on areasize
+      // TODO: scrollbar -> set nr. of images, maybe preload / precache
+
+      Game.areaSizes.map((i) => {
+        let [x, y] = i.toString().split(".")
+        console.log(x, y, x * y, (x * y) / 2)
+      })
+
+      const mainEvt = document.querySelector("#arena").addEventListener("click", (e) => {
+        const el = e.target
+        if (el.tagName !== "IMG") return
+        if (el.dataset.found === "1") return
+        const { id, pairId, flippedCount, found } = e.dataset
+
+        console.dir(e.target)
+      })
+
+      // localStorage JSON.stringify / parse
+      async function generateImages(rnd_url, nr) {
+        const sleep = (ms) => new Promise((rslv) => setTimeout(rslv, ms))
+        // TODO fix generate these -> all 32 max
+        let imgs = await Promise.all(urls.map((url) => fetch(url)))
+        // needs some wait time otherwise same url given back
+        await sleep(2000)
+        const imgs2 = await Promise.all(urls.map((url) => fetch(url)))
+        imgs = [...imgs, ...imgs2]
+        const images = imgs.map((x) => x.url)
+        document.querySelector("#imagelist").value = images.join("\n")
+      }
+
+      function loadAssignImages() {
+        let imgs = document.querySelector("#imagelist").value.split("\n")
+        imgs = imgs.map((i) => {
+          let img = new Image()
+          img.src = i.trim()
+          document.querySelector("#arena").appendChild(img)
+          return img
+        })
+        console.log(imgs)
+      }
+
+      const store = localStorage.getItem("images")
+      // no localstorage -- default init load async images
+      if (!store) {
+        // generateImages(url_rndinit, 20)
+      }
+      console.log("yeah")
+    </script>
+  </body>
+</html>
