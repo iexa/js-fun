@@ -1,0 +1,6 @@
+[submodule "bradt_50proj_50days"]
+	path = bradt_50proj_50days
+	url = https://github.com/bradtraversy/50projects50days
+[submodule "bradt_20vanillawebproj"]
+	path = bradt_20vanillawebproj
+	url = https://github.com/bradtraversy/vanillawebprojects
