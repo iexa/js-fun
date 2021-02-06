@@ -7,7 +7,7 @@
   "first_name": "string",
   "last_name": "string",
   "date_added": "date",
-  "posts": "post[]",
+  "posts": "post[]"
 },
 
 "post": {
@@ -18,7 +18,7 @@
   "title_img": "string",
   "body": "string",
   "date_added": "date",
-  "date_modified": "date",
+  "date_modified": "date"
 }
 
 }
