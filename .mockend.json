@@ -1,6 +1,5 @@
 {
 "user": {
-  "id": "int",
   "name": "string",
   "passwd": "string",
   "active": "boolean",
@@ -11,8 +10,7 @@
 },
 
 "post": {
-  "id": "int",
-  "user_id": "user",
+  "user": "user",
   "published": "boolean",
   "title": "string",
   "title_img": "string",
