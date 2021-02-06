@@ -1,0 +1,24 @@
+{
+"user": {
+  "id": "int",
+  "name": "string",
+  "passwd": "string",
+  "active": "boolean",
+  "first_name": "string",
+  "last_name": "string",
+  "date_added": "date",
+  "posts": "post[]",
+},
+
+"post": {
+  "id": "int",
+  "user_id": "user",
+  "published": "boolean",
+  "title": "string",
+  "title_img": "string",
+  "body": "string",
+  "date_added": "date",
+  "date_modified": "date",
+}
+
+}
